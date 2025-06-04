@@ -45,6 +45,9 @@ public class FuncionarioFrame {
 
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(10, 250, 150, 40);
+		
+		JButton btnSair = new JButton("Sair");
+		btnSair.setBounds(170, 250, 100, 40);
 
 		Container painel = tela.getContentPane();
 		painel.add(labelNome);
@@ -54,6 +57,7 @@ public class FuncionarioFrame {
 		painel.add(labelSetor);
 		painel.add(txtSetor);
 		painel.add(btnSalvar);
+		painel.add(btnSair);
 
 		btnSalvar.addActionListener(new ActionListener() {
 
@@ -74,6 +78,18 @@ public class FuncionarioFrame {
 				txtCargo.setText(null);
 				txtSetor.setText(null);
 
+			}
+		});
+		
+		btnSair.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int resposta = JOptionPane.showConfirmDialog(tela, "Sair do Sistema?");
+				if (resposta == 0) {
+				
+				System.exit(JFrame.EXIT_ON_CLOSE);
+				}
 			}
 		});
 

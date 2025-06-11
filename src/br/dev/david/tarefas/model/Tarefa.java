@@ -14,7 +14,7 @@ public class Tarefa {
 	private Funcionario responsavel;
 	
 	public Tarefa() {
-	System.out.println("Criando uma tarefa...");	
+		System.out.println("Criando uma tarefa...");	
 	}
 
 	public Tarefa(String nome) {

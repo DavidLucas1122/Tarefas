@@ -70,7 +70,7 @@ public class FuncionarioDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-		return funcionarios;
+		return null;
 		
 		
 		

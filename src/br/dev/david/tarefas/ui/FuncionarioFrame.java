@@ -1,10 +1,11 @@
 package br.dev.david.tarefas.ui;
 
-import java.awt.Container;
+import java.awt.Container;	
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -15,16 +16,16 @@ import br.dev.david.tarefas.model.Funcionario;
 
 public class FuncionarioFrame {
 
-	public FuncionarioFrame() {
-		criarTela();
+	public FuncionarioFrame(JFrame tela) {
+		criarTela(tela);
 	}
 
-	private void criarTela() {
+	private void criarTela(JFrame parent) {
 
-		JFrame tela = new JFrame();
+		JDialog tela = new JDialog(parent, true);
 		tela.setSize(400, 400);
 		tela.setTitle("Cadastro de Funcionários");
-		tela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		tela.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		tela.setLayout(null);
 		tela.setLocationRelativeTo(null);
 
@@ -87,8 +88,7 @@ public class FuncionarioFrame {
 			public void actionPerformed(ActionEvent e) {
 				int resposta = JOptionPane.showConfirmDialog(tela, "Sair do Sistema?");
 				if (resposta == 0) {
-				
-				System.exit(JFrame.EXIT_ON_CLOSE);
+					tela.dispose();
 				}
 			}
 		});

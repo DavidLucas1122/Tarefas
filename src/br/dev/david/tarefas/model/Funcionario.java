@@ -15,26 +15,18 @@ public class Funcionario {
 
 	public Funcionario(String nome) {
 		this.nome = nome;
-		UUID uuid = UUID.randomUUID();
-		String uuid8 = uuid.toString().substring(0,8);
 		this.matricula = Utils.gerarUUID8();
 	}
 	
 	public Funcionario(String nome, String cargo) {
 		this.nome = nome;
 		this.cargo = cargo;
-		UUID uuid = UUID.randomUUID();
-		String uuid8 = uuid.toString().substring(0,8);
 		this.matricula = Utils.gerarUUID8();
 	}
 	
 	public Funcionario() {
-		UUID uuid = UUID.randomUUID();
-		String uuid8 = uuid.toString().substring(0,8);
 		this.matricula = Utils.gerarUUID8();
 	}
-	
-	
 	
 	
 	

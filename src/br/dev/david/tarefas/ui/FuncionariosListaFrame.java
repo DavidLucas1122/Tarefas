@@ -51,7 +51,15 @@ public class FuncionariosListaFrame {
 	labelTitulo.setForeground(new Color(100, 0, 100));
 	labelTitulo.setBounds(10, 10, 400, 40);
 	
-//	Obter dados que serão exibidos
+	modelFuncionarios = new DefaultTableModel(colunas, 1);
+	carregarDados();
+	tabelaFuncionarios = new JTable(modelFuncionarios);
+	scroll = new JScrollPane(tabelaFuncionarios);
+	scroll.setBounds(10, 60, 580, 340);
+	
+	btnNovo = new JButton("Novo");
+	btnNovo.setBounds(10, 410, 150, 40);
+	
 	FuncionarioDAO dao = new FuncionarioDAO(null);
 	List<Funcionario> funcionarios = dao.getFuncionarios();
 	
@@ -72,20 +80,12 @@ public class FuncionariosListaFrame {
 	}
 	
 	
-	
-	modelFuncionarios = new DefaultTableModel(colunas, 100);
-	tabelaFuncionarios = new JTable(modelFuncionarios);
-	scroll = new JScrollPane(tabelaFuncionarios);
-	scroll.setBounds(10, 60, 580, 340);
-	
-	btnNovo = new JButton("Novo");
-	btnNovo.setBounds(10, 410, 150, 40);
-	
 	btnNovo.addActionListener(new ActionListener() {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new FuncionarioFrame();
+			new FuncionarioFrame(tela);
+			carregarDados();
 			
 		}
 	});
@@ -96,9 +96,23 @@ public class FuncionariosListaFrame {
 	
 	tela.setVisible(true);
 	
-	
-	
-	
-	
 	}
+	private Object[][] carregarDados() {
+		//Obter dados que serão exibidos na tela
+		FuncionarioDAO dao = new FuncionarioDAO(null);
+		List<Funcionario> funcionarios = dao.getFuncionarios();
+		
+		Object[][] dados = new Object[funcionarios.size()][3];
+		
+		int i = 0;
+		for(Funcionario f : funcionarios) {
+			dados[i][0] = f.getMatricula();
+			dados[i][1] = f.getNome();
+			dados[i][2] = f.getCargo();
+			i++;
+		}
+		modelFuncionarios.setDataVector(dados, colunas);
+		return dados;
+	}
+	
 }

@@ -12,6 +12,7 @@ import br.dev.david.tarefas.model.Funcionario;
 import br.dev.david.tarefas.model.Tarefa;
 import br.dev.david.tarefas.ui.FuncionarioFrame;
 import br.dev.david.tarefas.ui.FuncionariosListaFrame;
+import br.dev.david.tarefas.ui.GerenciadorFrame;
 
 public class Main {
 
@@ -22,10 +23,9 @@ public class Main {
 //		FuncionarioDAO dao = new FuncionarioDAO(null);
 //		dao.getFuncionarios();
 		
+		new GerenciadorFrame();
 		
-		
-	new FuncionariosListaFrame();
-//		new FuncionarioFrame();
+//	new FuncionariosListaFrame();
 		
 //		UUID uuid = UUID.randomUUID();
 //		System.out.println(uuid);
@@ -58,10 +58,9 @@ public class Main {
 		
 		FileWriter fw = null;
 		BufferedWriter bw = null;
-
 		
 		try {
-			fw = new FileWriter(caminho, false);
+			fw = new FileWriter(caminho, true);
 			bw = new BufferedWriter(fw);
 			
 			//Adicionando coisas ao arquivo
@@ -94,7 +93,7 @@ public class Main {
 			
 			while (retorno != null) {
 				System.out.println(retorno);
-				retorno = br.readLine();
+				System.out.println(br.readLine());
 			}
 		}
 		catch (FileNotFoundException erro){

@@ -23,8 +23,7 @@ public class Main {
 //		FuncionarioDAO dao = new FuncionarioDAO(null);
 //		dao.getFuncionarios();
 		
-		new GerenciadorFrame();
-		
+		new GerenciadorFrame();		
 //	new FuncionariosListaFrame();
 		
 //		UUID uuid = UUID.randomUUID();

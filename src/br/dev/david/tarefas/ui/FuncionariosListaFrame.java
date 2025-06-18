@@ -33,7 +33,6 @@ public class FuncionariosListaFrame {
 	}
 	
 	
-	
 	private void criarTela() {
 		
 		JFrame tela = new JFrame("Lista de Funcionários");
@@ -59,6 +58,8 @@ public class FuncionariosListaFrame {
 	
 	btnNovo = new JButton("Novo");
 	btnNovo.setBounds(10, 410, 150, 40);
+	
+	
 	
 	FuncionarioDAO dao = new FuncionarioDAO(null);
 	List<Funcionario> funcionarios = dao.getFuncionarios();

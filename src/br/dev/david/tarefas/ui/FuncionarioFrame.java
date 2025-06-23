@@ -96,4 +96,5 @@ public class FuncionarioFrame {
 		tela.setVisible(true);
 
 	}
+	
 }

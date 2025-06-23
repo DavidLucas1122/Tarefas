@@ -18,7 +18,7 @@ public class FuncionarioDAO {
 	private FileReader fr;
 	private BufferedReader br;
 	
-	private String arquivo = "/Users/25132827/tarefasDS1T-A/funcionarios.csv";
+	private String arquivo = "C:\\Users\\david\\OneDrive\\Documentos\\tarefas-DS1T-A\\funcionarios.csv.txt";
 	
 	public FuncionarioDAO(Funcionario funcionario) {
 		this.funcionario = funcionario;
@@ -75,7 +75,17 @@ public class FuncionarioDAO {
 		
 		
 	}
-	
+	public Funcionario buscarPorMatricula(String matricula) {
+	    List<Funcionario> funcionarios = getFuncionarios();
+	    if (funcionarios != null) {
+	        for (Funcionario f : funcionarios) {
+	            if (f.getMatricula().equals(matricula)) {
+	                return f;
+	            }
+	        }
+	    }
+	    return null;
+	}
 	
 	
 }

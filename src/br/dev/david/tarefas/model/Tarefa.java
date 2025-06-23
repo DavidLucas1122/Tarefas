@@ -1,29 +1,36 @@
 package br.dev.david.tarefas.model;
 
-import java.time.LocalDate;
+import br.dev.david.tarefas.utils.Utils;
 
 public class Tarefa {
 
+	private String codigo;
 	private String nome;
 	private String descricao;
-	private LocalDate dataInicio;
-	private int Prazo;
-	private LocalDate dataPrevisaoDEntrega;
-	private LocalDate dataEntrega;
+	private String dataInicio;
+	private String Prazo;
+	private String dataEntrega;
 	private Status status;
 	private Funcionario responsavel;
-	
-	public Tarefa() {
-		System.out.println("Criando uma tarefa...");	
-	}
 
-	public Tarefa(String nome) {
-		System.out.println("Criando a tarefa " + nome);
-		this.nome = nome;
-	}
+	
+    public Tarefa() {
+        this.codigo = Utils.gerarUUID8();
+    }
+
+    public Tarefa(String nome) {
+        this.nome = nome;
+        this.codigo = Utils.gerarUUID8();
+    }
 	
 	
-	
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 	
 	public String getNome() {
 		return nome;
@@ -41,35 +48,27 @@ public class Tarefa {
 		this.descricao = descricao;
 	}
 
-	public LocalDate getDataInicio() {
+	public String getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(LocalDate dataInicio) {
+	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public int getPrazo() {
+	public String getPrazo() {
 		return Prazo;
 	}
 
-	public void setPrazo(int prazo) {
+	public void setPrazo(String prazo) {
 		Prazo = prazo;
 	}
 
-	public LocalDate getDataPrevisaoDEntrega() {
-		return dataPrevisaoDEntrega;
-	}
-
-	public void setDataPrevisaoDEntrega(LocalDate dataPrevisaoDEntrega) {
-		this.dataPrevisaoDEntrega = dataPrevisaoDEntrega;
-	}
-
-	public LocalDate getDataEntrega() {
+	public String getDataEntrega() {
 		return dataEntrega;
 	}
 
-	public void setDataEntrega(LocalDate dataEntrega) {
+	public void setDataEntrega(String dataEntrega) {
 		this.dataEntrega = dataEntrega;
 	}
 
@@ -88,5 +87,11 @@ public class Tarefa {
 	public void setResponsavel(Funcionario responsavel) {
 		this.responsavel = responsavel;
 	}
-
+	
+	@Override
+	public String toString() {
+		return nome + "," + descricao +  "," + dataInicio + "," + Prazo + "," + dataEntrega + responsavel + "\n";
+	}
+	
+	
 }

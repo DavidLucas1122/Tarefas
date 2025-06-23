@@ -13,6 +13,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import java.util.List;
+
+import br.dev.david.tarefas.dao.TarefasDAO;
+import br.dev.david.tarefas.model.Tarefa;
+
 public class TarefasListaFrame {
 
 	private JLabel labelTitulo;
@@ -47,11 +52,16 @@ public class TarefasListaFrame {
 		
 		modelTarefas = new DefaultTableModel(colunas, 1);
 		tabelaTarefas = new JTable(modelTarefas);
+		
+		carregarDados();
 		scrollTarefas = new JScrollPane(tabelaTarefas);
 		scrollTarefas.setBounds(10, 60, 580, 340);
 		
 		btnNovaTarefa = new JButton("Nova Tarefa");
 		btnNovaTarefa.setBounds(10, 410, 150, 40);
+		
+		TarefasDAO dao = new TarefasDAO(null);
+		List<Tarefa> tarefas = dao.getTarefas();
 		
 		btnNovaTarefa.addActionListener(new ActionListener() {
 			
@@ -73,6 +83,24 @@ public class TarefasListaFrame {
 		tela.setVisible(true);
 		
 	}
+	private Object[][] carregarDados(){
+	    TarefasDAO dao = new TarefasDAO();
+	    List<Tarefa> tarefas = dao.getTarefas();
+
+	    Object[][] dados = new Object[tarefas.size()][3];
+	    int i = 0;
+
+	    for (Tarefa t : tarefas) {
+	        dados[i][0] = t.getCodigo();
+	        dados[i][1] = t.getNome();
+	        dados[i][2] = (t.getResponsavel() != null) ? t.getResponsavel().getNome() : "Sem responsável";
+	        i++;
+	    }
+
+	    modelTarefas.setDataVector(dados, colunas);
+	    return dados;
+	}
+
 	
 
 }

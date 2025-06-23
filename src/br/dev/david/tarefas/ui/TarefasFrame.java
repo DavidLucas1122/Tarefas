@@ -3,6 +3,7 @@ package br.dev.david.tarefas.ui;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,6 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
+
+import br.dev.david.tarefas.dao.TarefasDAO;
+import br.dev.david.tarefas.model.Funcionario;
+import br.dev.david.tarefas.model.Tarefa;
+import br.dev.david.tarefas.dao.FuncionarioDAO;
 
 
 	public class TarefasFrame {
@@ -30,7 +36,7 @@ import javax.swing.text.MaskFormatter;
 	private JLabel labelStatus;
 	private JComboBox<String> cmbStatus;
 	private JLabel labelResponsavel;
-	private JComboBox<String> cmbResponsavel;
+	private JComboBox<String> cmbFuncionario;
 	private JButton btnSalvar;
 	private JButton btnSair;
 	MaskFormatter mascaraData = null;
@@ -93,9 +99,18 @@ import javax.swing.text.MaskFormatter;
         cmbStatus.setBounds(20, 345, 300, 25);
 
         labelResponsavel = new JLabel("Responsável:");
-        cmbResponsavel = new JComboBox<>(new String[]{"Nome do funcionário"});
+        FuncionarioDAO daoFuncionario = new FuncionarioDAO(null);
+        List<Funcionario> funcionarios = daoFuncionario.getFuncionarios();
+
+        String[] nomesFuncionarios = new String[funcionarios.size()];
+        for (int i = 0; i < funcionarios.size(); i++) {
+            nomesFuncionarios[i] = funcionarios.get(i).getNome();
+        }
+
+        cmbFuncionario = new JComboBox<>(nomesFuncionarios);
+
         labelResponsavel.setBounds(20, 380, 150, 25);
-        cmbResponsavel.setBounds(20, 405, 300, 25);
+        cmbFuncionario.setBounds(20, 405, 300, 25);
 
         btnSalvar = new JButton("Salvar");
         btnSair = new JButton("Sair");
@@ -103,13 +118,43 @@ import javax.swing.text.MaskFormatter;
         btnSair.setBounds(160, 460, 120, 40);
         
         btnSalvar.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tarefa t = new Tarefa();
+                t.setNome(txtTitulo.getText());
+                t.setDescricao(txtDescricao.getText());
+                t.setDataInicio(txtDataI.getText());
+                t.setPrazo(txtPrazo.getText());
+                t.setDataEntrega(txtDataC.getText());
+
+                // Obter responsável
+                String nomeSelecionado = (String) cmbFuncionario.getSelectedItem();
+                FuncionarioDAO daoFuncionario = new FuncionarioDAO(null);
+                List<Funcionario> funcionarios = daoFuncionario.getFuncionarios();
+
+                Funcionario responsavel = null;
+                for (Funcionario f : funcionarios) {
+                    if (f.getNome().equals(nomeSelecionado)) {
+                        responsavel = f;
+                        break;
+                    }
+                }
+
+                t.setResponsavel(responsavel);
+
+                TarefasDAO dao = new TarefasDAO(t);
+                dao.salvar();
+
+                JOptionPane.showMessageDialog(tela, t.getNome() + " gravado com sucesso!");
+
+                txtTitulo.setText(null);
+                txtDescricao.setText(null);
+                txtDataI.setText(null);
+                txtPrazo.setText(null);
+                txtDataC.setText(null);
+            }
+        });
+
         
         btnSair.addActionListener(new ActionListener() {
 			
@@ -138,7 +183,7 @@ import javax.swing.text.MaskFormatter;
 		painel.add(labelStatus);
 		painel.add(cmbStatus);
 		painel.add(labelResponsavel);
-		painel.add(cmbResponsavel);
+		painel.add(cmbFuncionario);
 		painel.add(btnSalvar);
 		painel.add(btnSair);
 		
